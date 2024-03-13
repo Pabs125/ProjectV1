@@ -2,7 +2,7 @@ import React from 'react';
 import {
   StyleSheet,
   Text,
-  TouchableOpacity,
+  TouchableOpacity, 
   StyleProp,
   ViewStyle,
   TextStyle,

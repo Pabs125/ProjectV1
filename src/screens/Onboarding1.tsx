@@ -5,7 +5,7 @@ import { INTRO_SCREEN_01 } from "../utils/constants";
 import { ScreenIndicators } from "../components/ScreenIndicators";
 import PrimaryButton  from "../components/PrimaryButton";
 
-const imagen = { uri: "https://scontent.fclo9-1.fna.fbcdn.net/v/t39.30808-6/399994845_337551882299281_6956753003659340765_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=3635dc&_nc_eui2=AeH12dYTjHmWdi83p5dnDoeFbgMwuCdZ_aZuAzC4J1n9prBrrm6XU7-sAOyoqRoqFoFvNwUKqwjGiEXmq5VSDWEJ&_nc_ohc=MRFhn1CBFq4AX9YBD4d&_nc_zt=23&_nc_ht=scontent.fclo9-1.fna&oh=00_AfAFZt2KkP6PRZRel6XErjdRLgfDU4v8kWOWi8ONROhV4Q&oe=65E70E1F" };
+const imagen = require("../img/vuseW1.jpg");
 const logoUrl = require("../img/VuseLogo.png");
 
 export const Onboarding1 = ({

@@ -5,7 +5,7 @@ import { INTRO_SCREEN_03 } from "../utils/constants";
 import { ScreenIndicators } from "../components/ScreenIndicators";
 import PrimaryButton  from "../components/PrimaryButton";
 
-const imagen = { uri: "https://scontent.fclo9-1.fna.fbcdn.net/v/t39.30808-6/416061965_370018129052656_7207039697643193919_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=3635dc&_nc_eui2=AeFScxAgHhpznROtKIYDwI0Uf4fBkatSg_l_h8GRq1KD-bZLRRYyMLH2zNCupgsHWnaHzwD5j7QjN73CGs3273o1&_nc_ohc=vU5ACC68_lAAX8-svNh&_nc_zt=23&_nc_ht=scontent.fclo9-1.fna&oh=00_AfCqpOaxNnwDkXZYH1ri-J9Q2JDCyFWFvLMLJxqEC6Oc2Q&oe=65E62DE0" };
+const imagen = require("../img/vuseW3.jpg");
 const logoUrl = require("../img/VuseLogo.png");
 const publiUrl = require("../img/publi2.jpg");
 

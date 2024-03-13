@@ -1,23 +1,67 @@
-import React from "react";
-import { Text, StyleSheet, SafeAreaView, View, ImageBackground, Image} from "react-native";
-import { RootStackScreenProps} from "../navigators/MainNavigators";
+import React, { useCallback, useRef, useState } from "react";
+import { Text, StyleSheet, SafeAreaView, View, Image, TouchableOpacity, ImageBackground } from "react-native";
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
+const imagen = require("../img/fonfoHome.jpg");
+const vapo = require("../img/vapo1.png");
 
-const imagen = { uri: "https://scontent.fclo9-1.fna.fbcdn.net/v/t39.30808-6/420081944_378201168234352_2375964957751989901_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=3635dc&_nc_eui2=AeH-H8XVh0GWNtG7J0LPJ-WlgrAP7Ngk0ziCsA_s2CTTOH2kbBwoaBq1QNUjixWJzc--K9-Fd06Iit_WVAXAltLV&_nc_ohc=-szyjXlSGDAAX-xSnXT&_nc_zt=23&_nc_ht=scontent.fclo9-1.fna&oh=00_AfCNSDH80stPAvyI-1nUvBZGE_JHjiD4GGVftoc1XLmGlA&oe=65E6E1CC" };
-const logoUrl = require("../img/VuseLogo.png");
+export const Home = () => {
+  const sheetRef = useRef<BottomSheet>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const snapPoints = ["65%"];
 
-export const Home = ({
-  navigation,
-}: RootStackScreenProps<"Home">) => {
+  const handleSnapPress = useCallback(() => {
+    setIsOpen(true);
+  }, []);
+
+  const handleCloseSheet = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
-      <ImageBackground source={imagen} resizeMode={'cover'} style={styles.image}>
-        <View style={styles.overlay}>
-            <View style={styles.logoContainer}>
-                <Image source={logoUrl} style={styles.logo} />
+      <GestureHandlerRootView style={styles.container}>
+        <ImageBackground source={imagen} resizeMode={'cover'} style={styles.imagen}>
+          <View style={styles.card}>
+            <Image source={vapo} style={styles.image} />
+            <Text style={styles.title}>VUSE GO MAX - ICED COCONUT MOCHA</Text>
+            <Text style={styles.normalText}>Vapeador desechable. Contiene 1 und de dispositivo con batería no recargable, precargado hasta con 1.500 Puff*. Sabor: Iced Coconut Mocha (Ice Coco Mocha)</Text>
+            
+            <View style={styles.priceContainer}>
+              <Text style={styles.price}>$35.000 COP</Text>
+              <TouchableOpacity style={styles.addButton} onPress={handleSnapPress}>
+                <Text style={styles.buttonText}>Añadir al carrito</Text>
+              </TouchableOpacity>
             </View>
-        </View>
-      </ImageBackground>
+          </View>
+        </ImageBackground>
+        {isOpen && (
+          <BottomSheet
+            ref={sheetRef}
+            snapPoints={snapPoints}
+            enablePanDownToClose={true}
+            onClose={() => setIsOpen(false)}
+          >
+            <BottomSheetView style={styles.bottomSheetContent}>
+              <Image source={vapo} style={styles.bottomSheetImage} />
+              <View style={styles.bottomSheetTextContainer}>
+                <Text style={styles.bottomSheetTitle}>VUSE GO MAX - ICED COCONUT MOCHA</Text>
+                <Text style={styles.bottomSheetText}>Vapeador desechable. Contiene 1 und de dispositivo con batería no recargable, precargado hasta con 1.500 Puff*. (5 ml de líquido con sales de nicotina)</Text>
+                <Text style={styles.bottomSheetText}>Sabor: Iced Coconut Mocha (Ice Coco Mocha)</Text>
+                <Text style={styles.bottomSheetText}>Nivel de nicotina: 34mg/ml - 3%</Text>
+                <Text style={styles.bottomSheetTitle}>+18 Producto exclusivo para mayores de edad, contiene nicotina sustancia adictiva.</Text>
+              </View>
+              <View style={styles.bottomSheetFooter}>
+                <Text style={styles.bottomSheetPrice}>Precio: $35.000 COP</Text>
+                <TouchableOpacity style={styles.bottomSheetButton} onPress={handleCloseSheet}>
+                  <Text style={styles.bottomSheetButtonText}>QUIERO UNO</Text>
+                </TouchableOpacity>
+              </View>
+            </BottomSheetView>
+          </BottomSheet>
+        )}
+      </GestureHandlerRootView>
     </SafeAreaView>
   );
 }
@@ -26,48 +70,110 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  image: {
+  imagen: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-  overlay: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    paddingHorizontal: 20,
-  },
-  textContainer: {
-    backgroundColor: "white",
-    padding: 20,
+  card: {
+    backgroundColor: '#fff',
     borderRadius: 10,
-    marginBottom: 20,
-    alignItems: "center",
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    padding: 10,
+    margin: 10,
+    maxWidth: 300,
+    alignItems: 'center',
   },
-  boldCenteredText: {
-    color: "black",
-    textAlign: "center",
-    fontWeight: "bold", // Hacer el texto en negrita
+  image: {
+    width: 200,
+    height: 200,
+    resizeMode: 'cover',
+    borderRadius: 10,
   },
-  whiteText: {
-    color: "black",
-    textAlign: "center",
+  title: {
+    marginTop: 10,
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    borderRadius: 10,
   },
-  logoContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 20,
-    width: '100%', // Ancho del contenedor igual al 100% del contenedor padre
+  normalText: {
+    marginTop: 5,
+    textAlign: 'center',
+    fontSize: 14,
   },
-  logo: {
-    maxWidth: '50%', // Ancho máximo igual al 50% del contenedor
-    height: 30, // Altura fija del logo (ajustar según lo necesites)
+  priceContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
   },
-  button: {
-    height: 52,
-    backgroundColor: "orange", // Color naranja
-    alignItems: "center",
-    justifyContent: "center",
+  price: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginRight: 10,
+  },
+  addButton: {
+    backgroundColor: 'darkorange',
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    borderRadius: 20,
+  },
+  buttonText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+    color: '#333',
+    textAlign: 'center',
+  },
+  bottomSheetContent: {
+    alignItems: 'center',
+  },
+  bottomSheetImage: {
+    width: 250,
+    height: 250,
+    resizeMode: 'cover',
+    borderRadius: 10,
+  },
+  bottomSheetTextContainer: {
+    padding: 10,
+  },
+  bottomSheetTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  bottomSheetText: {
+    textAlign: 'center',
+    fontSize: 14,
+    marginBottom: 5,
+  },
+  bottomSheetPrice: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  bottomSheetFooter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  bottomSheetButton: {
+    backgroundColor: 'darkorange',
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    borderRadius: 20,
+    marginLeft: 10,
+  },
+  bottomSheetButtonText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: 'center',
   },
 });
